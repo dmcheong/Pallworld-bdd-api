@@ -1,0 +1,54 @@
+const mongoose = require('mongoose');
+
+const productSchema = new mongoose.Schema({
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Categorie'
+    // required: true,
+  }],
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+    min: 0, // Le prix ne peut pas être négatif
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  images: [{
+    type: String,
+  }],
+});
+
+// Ajout de méthodes statiques pour getById et getAll
+productSchema.statics.getById = async function (productId) {
+  try {
+    console.log('Tentative de récupération du produit avec ID :', productId);
+    const product = await this.findById(productId).populate('categories');
+    console.log('Produit récupéré avec succès :', product);
+    return product;
+  } catch (error) {
+    console.error('Erreur lors de la récupération du produit :', error);
+    throw error;
+  }
+};
+
+productSchema.statics.getAll = async function () {
+  try {
+    console.log('Tentative de récupération de tous les produits...');
+    const products = await this.find().populate('categories');
+    console.log('Produits récupérés avec succès :', products);
+    return products;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des produits :', error);
+    throw error;
+  }
+};
+
+const Products = mongoose.model('Products', productSchema);
+
+module.exports = Products;

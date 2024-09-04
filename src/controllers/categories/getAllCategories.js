@@ -1,0 +1,12 @@
+const Categorie = require('../../models/categorieModel');
+
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Categorie.getAll();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur lors de la récupération des catégories.' });
+  }
+};
+
+module.exports = getAllCategories;
