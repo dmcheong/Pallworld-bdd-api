@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 
  // Autoriser toutes les requêtes cross-origin
 const cors = require('cors');
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 // Charger les variables d'environnement
 dotenv.config();
