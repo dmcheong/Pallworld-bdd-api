@@ -8,6 +8,9 @@ const getAllUsers = require('../controllers/users/getAllUsers');
 
 const { verifyUser } = require('../controllers/users/verifyUser');
 
+const { forgotPassword } = require('../controllers/users/forgotPassword');
+const { resetPassword } = require('../controllers/users/resetPassword'); 
+
 const { signInUser } = require('../controllers/users/signInUser');
 const { signUpUser } = require('../controllers/users/signUpUser');
 
@@ -41,7 +44,12 @@ router.put('/:id/password', async (req, res) => {
     }
 });
 
+// Routes pour vérifier l'utilisateur
 router.post('/verify', verifyUser);
+
+// Routes pour la réinitialisation de mot de passe
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword); 
 
 // Routes pour l'authentification (sign in et sign up)
 router.post('/signin', signInUser);
