@@ -13,6 +13,11 @@ const signInUser = async (req, res) => {
       return res.status(404).json({ message: "L'utilisateur n'existe pas." });
     }
 
+    // Vérifier si le compte est vérifié
+    if (!user.isVerified) {
+      return res.status(403).json({ message: 'Veuillez vérifier votre email avant de vous connecter.' });
+    }
+
     // Utiliser le middleware pour vérifier le mot de passe
     const isValidPassword = await verifyPasswordMiddleware(password, user);
 

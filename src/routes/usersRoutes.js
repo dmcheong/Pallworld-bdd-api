@@ -6,6 +6,8 @@ const deleteUser = require('../controllers/users/deleteUser');
 const getUserById = require('../controllers/users/getUserById');
 const getAllUsers = require('../controllers/users/getAllUsers');
 
+const { verifyUser } = require('../controllers/users/verifyUser');
+
 const { signInUser } = require('../controllers/users/signInUser');
 const { signUpUser } = require('../controllers/users/signUpUser');
 
@@ -38,6 +40,8 @@ router.put('/:id/password', async (req, res) => {
       res.status(500).json({ error: 'Erreur lors de la mise à jour du mot de passe.' });
     }
 });
+
+router.post('/verify', verifyUser);
 
 // Routes pour l'authentification (sign in et sign up)
 router.post('/signin', signInUser);

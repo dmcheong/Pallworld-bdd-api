@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Paniers',
   }],
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: String,
 });
 
 // Middleware pre-save pour hacher le mot de passe avant la sauvegarde
