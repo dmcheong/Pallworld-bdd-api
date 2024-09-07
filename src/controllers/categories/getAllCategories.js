@@ -2,8 +2,8 @@ const Categorie = require('../../models/categorieModel');
 
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await Categorie.getAll();
-    res.status(200).json(categories);
+    const category = await Categorie.getAll();
+    res.status(200).json(category);
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la récupération des catégories.' });
   }

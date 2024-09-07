@@ -37,7 +37,7 @@ const searchRoutes = require('./src/routes/searchRoutes');
 app.use('/api/users', usersRoutes);
 app.use('/api/paniers', panierRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/categories', categoriesRoutes);
+app.use('/api/category', categoriesRoutes);
 app.use('/api/tabproducts', tabProductsRoutes);
 app.use('/api', searchRoutes); 
 

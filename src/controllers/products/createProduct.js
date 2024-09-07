@@ -3,23 +3,26 @@ const Categorie = require('../../models/categorieModel');
 
 const createProduct = async (req, res) => {
   try {
-    // Récupérer les identifiants de catégories depuis le corps de la requête
-    const { name, description, characteristics, price, quantity, categories, images } = req.body;
+    // Récupérer les données du corps de la requête
+    const { name, description, characteristics, price, quantity, category, images, colors, sizes, customizationOptions } = req.body;
 
     // Vérifier l'existence des catégories
-    const existingCategories = await Categorie.find({ _id: { $in: categories } });
-    if (existingCategories.length !== categories.length) {
+    const existingCategories = await Categorie.find({ _id: { $in: category } });
+    if (existingCategories.length !== category.length) {
       return res.status(400).json({ error: 'Certaines catégories n\'existent pas.' });
     }
 
-    const newProduct = new Products({
+    const newProduct = new Product({
       name,
       description,
       characteristics,
       price,
       quantity,
-      categories,
-      images
+      category,
+      images,
+      colors,
+      sizes,
+      customizationOptions
     });
 
     const savedProduct = await newProduct.save();

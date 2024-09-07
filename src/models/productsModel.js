@@ -1,10 +1,21 @@
 const mongoose = require('mongoose');
 
+// Sous-schéma pour les options de personnalisation
+const customizationOptionSchema = new mongoose.Schema({
+  position: {
+    type: String,
+    required: true,
+  },
+  sizes: [{
+    type: String,
+    required: true,
+  }],
+});
+
 const productSchema = new mongoose.Schema({
-  categories: [{
+  category: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Categorie',
-    // required: true,
   }],
   name: {
     type: String,
@@ -17,7 +28,7 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
   price: {
-    type: String,
+    type: Number,
     required: true,
     min: 0, // Le prix ne peut pas être négatif
   },
@@ -28,13 +39,23 @@ const productSchema = new mongoose.Schema({
   images: [{
     type: String,
   }],
+  colors: [{
+    type: String,
+  }],
+  sizes: [{
+    type: String,
+    enum: ['XS', 'S', 'M', 'L', 'XL', '2XL'],
+  }],
+  customizationOptions: [
+    customizationOptionSchema
+  ],
 });
 
 // Ajout de méthodes statiques pour getById et getAll
 productSchema.statics.getById = async function (productId) {
   try {
     console.log('Tentative de récupération du produit avec ID :', productId);
-    const product = await this.findById(productId).populate('categories');
+    const product = await this.findById(productId).populate('category');
     console.log('Produit récupéré avec succès :', product);
     return product;
   } catch (error) {
@@ -46,7 +67,7 @@ productSchema.statics.getById = async function (productId) {
 productSchema.statics.getAll = async function () {
   try {
     console.log('Tentative de récupération de tous les produits...');
-    const products = await this.find().populate('categories');
+    const products = await this.find().populate('category');
     console.log('Produits récupérés avec succès :', products);
     return products;
   } catch (error) {

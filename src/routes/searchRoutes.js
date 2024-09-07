@@ -5,6 +5,12 @@ const Products = require('../models/productsModel'); // Assure-toi que le chemin
 // Route de recherche
 router.get('/search', async (req, res) => {
   const query = req.query.query;
+
+  // Vérifie si la longueur de la requête est inférieure à 2 caractères
+  if (!query || query.length < 2) {
+    return res.status(400).json({ error: 'Veuillez entrer au moins 2 caractères pour effectuer une recherche.' });
+  }
+
   try {
     // Recherche par nom de produit 
     const products = await Products.find({ 
