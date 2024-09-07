@@ -6,7 +6,7 @@ const updateProduct = async (req, res) => {
 
   try {
     // Récupérer les identifiants de catégories depuis le corps de la requête
-    const { categories, name, price, quantity, images } = req.body;
+    const { name, description, characteristics, price, quantity, categories, images } = req.body;
 
     // Vérifier l'existence des catégories
     const existingCategories = await Categorie.find({ _id: { $in: categories } });
@@ -17,11 +17,13 @@ const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
       {
-        categories,
         name,
+        description,
+        characteristics,
         price,
         quantity,
-        images,
+        categories,
+        images
       },
       { new: true }
     );

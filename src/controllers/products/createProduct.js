@@ -4,7 +4,7 @@ const Categorie = require('../../models/categorieModel');
 const createProduct = async (req, res) => {
   try {
     // Récupérer les identifiants de catégories depuis le corps de la requête
-    const { categories, name, price, quantity, images } = req.body;
+    const { name, description, characteristics, price, quantity, categories, images } = req.body;
 
     // Vérifier l'existence des catégories
     const existingCategories = await Categorie.find({ _id: { $in: categories } });
@@ -12,12 +12,14 @@ const createProduct = async (req, res) => {
       return res.status(400).json({ error: 'Certaines catégories n\'existent pas.' });
     }
 
-    const newProduct = new Product({
-      categories,
+    const newProduct = new Products({
       name,
+      description,
+      characteristics,
       price,
       quantity,
-      images,
+      categories,
+      images
     });
 
     const savedProduct = await newProduct.save();

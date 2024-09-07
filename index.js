@@ -31,6 +31,7 @@ const panierRoutes = require('./src/routes/panierRoutes');
 const productRoutes = require('./src/routes/productsRoutes');
 const categoriesRoutes = require('./src/routes/categoriesRoutes');
 const tabProductsRoutes = require('./src/routes/tabProductsRoutes');
+const searchRoutes = require('./src/routes/searchRoutes');
 
 // Utilisation des routes pour chaque entité
 app.use('/api/users', usersRoutes);
@@ -38,6 +39,7 @@ app.use('/api/paniers', panierRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/tabproducts', tabProductsRoutes);
+app.use('/api', searchRoutes); 
 
 const server = http.createServer(app);
 
