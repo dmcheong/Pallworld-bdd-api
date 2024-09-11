@@ -18,11 +18,11 @@ const router = express.Router();
 
 // Routes pour les utilisateurs
 router.post('/', createUser);
+
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
 
+router.put('/:id', updateUser);
 router.put('/:id/password', async (req, res) => {
     const { id } = req.params;
     const { newPassword } = req.body;
@@ -43,6 +43,8 @@ router.put('/:id/password', async (req, res) => {
       res.status(500).json({ error: 'Erreur lors de la mise à jour du mot de passe.' });
     }
 });
+
+router.delete('/:id', deleteUser);
 
 // Routes pour vérifier l'utilisateur
 router.post('/verify', verifyUser);

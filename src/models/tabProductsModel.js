@@ -6,14 +6,24 @@ const tabProductsSchema = new mongoose.Schema({
     ref: 'Products',
     required: true,
   },
-  quantity: {
+  name: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  price: {
     type: Number,
     required: true,
   },
-  price: {
-    type: String,
+  color: String,
+  size: String,
+  customization: {
+    position: String,
+    customizationSize: String,
+  },
+  quantity: {
+    type: Number,
     required: true,
-    min: 0, // Le prix ne peut pas être négatif
   },
 });
 

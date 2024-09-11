@@ -6,7 +6,7 @@ const customizationOptionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  sizes: [{
+  customizationSize: [{
     type: String,
     required: true,
   }],

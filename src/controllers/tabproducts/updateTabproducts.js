@@ -4,15 +4,15 @@ const updateTabproducts = async (req, res) => {
   const { id } = req.params;
   
   try {
-    const updatedTabproducts = await Tabproducts.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedTabProduct = await Tabproducts.findByIdAndUpdate(id, req.body, { new: true });
     
-    if (!updatedTabproducts) {
-      return res.status(404).json({ error: 'Tableau de produits non trouvé.' });
+    if (!updatedTabProduct) {
+      return res.status(404).json({ error: 'Produit non trouvé dans le panier.' });
     }
     
-    res.status(200).json(updatedTabproducts);
+    res.status(200).json(updatedTabProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Erreur lors de la mise à jour du tableau de produits.' });
+    res.status(500).json({ error: 'Erreur lors de la mise à jour du produit dans le panier.' });
   }
 };
 

@@ -1,28 +1,35 @@
 const Tabproducts = require('../../models/tabProductsModel');
+const Products = require('../../models/productsModel');
 
 const createTabProduct = async (req, res) => {
   try {
-    // Récupérer les données du corps de la requête
-    const { productId, quantity, price } = req.body;
+    const { productId, quantity, color, size, customization } = req.body;
 
-    // Vérifier si l'ID du produit est fourni
-    if (!productId) {
-      return res.status(400).json({ error: 'L\'ID du produit est requis.' });
+    const product = await Products.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Produit non trouvé.' });
     }
 
-    // Créer un nouveau tabProduct avec les données fournies
     const newTabProduct = new Tabproducts({
-      productId,
+      productId: product._id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      color: color || product.colors[0],
+      size: size || product.sizes[0], 
+      customization: {
+        position: customization.position,
+        customizationSize: customization.customizationSize,
+      },
       quantity,
-      price,
     });
 
-    // Sauvegarder le nouveau tabProduct dans la base de données
     const savedTabProduct = await newTabProduct.save();
 
     res.status(201).json(savedTabProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Erreur lors de la création du tabProduct.' });
+    res.status(500).json({ error: 'Erreur lors de la création du produit dans le panier.' });
   }
 };
 
