@@ -27,7 +27,6 @@ const tabProductsSchema = new mongoose.Schema({
   },
 });
 
-// Ajout de méthodes statiques pour getById et getAll
 tabProductsSchema.statics.getById = async function (tabProductId) {
   return await this.findById(tabProductId).populate('productId');
 };

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Sous-schéma pour les options de personnalisation
 const customizationOptionSchema = new mongoose.Schema({
   position: {
     type: String,
@@ -30,7 +29,7 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
-    min: 0, // Le prix ne peut pas être négatif
+    min: 0,
   },
   quantity: {
     type: Number,
@@ -51,7 +50,6 @@ const productSchema = new mongoose.Schema({
   ],
 });
 
-// Ajout de méthodes statiques pour getById et getAll
 productSchema.statics.getById = async function (productId) {
   try {
     console.log('Tentative de récupération du produit avec ID :', productId);

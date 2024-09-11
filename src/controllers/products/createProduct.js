@@ -3,10 +3,8 @@ const Categorie = require('../../models/categorieModel');
 
 const createProduct = async (req, res) => {
   try {
-    // Récupérer les données du corps de la requête
     const { name, description, characteristics, price, quantity, category, images, colors, sizes, customizationOptions } = req.body;
 
-    // Vérifier l'existence des catégories
     const existingCategories = await Categorie.find({ _id: { $in: category } });
     if (existingCategories.length !== category.length) {
       return res.status(400).json({ error: 'Certaines catégories n\'existent pas.' });

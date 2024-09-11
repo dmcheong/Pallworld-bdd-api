@@ -1,22 +1,18 @@
 const express = require('express');
-const http = require('http'); // Pour la persistance et éviter des doubles appels
+const http = require('http');
 
-// Initialiser Express
+
 const app = express();
 const dotenv = require('dotenv');
 
- // Autoriser toutes les requêtes cross-origin
 const cors = require('cors');
 app.use(cors({ origin: 'http://localhost:3000' }));
 
-// Charger les variables d'environnement
 dotenv.config();
 const port = process.env.PORT;
 
-// Connexion à la base de données MongoDB
 const mongoose = require('./src/config/mongodb-config');
 
-// Middleware pour analyser les requêtes JSON
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -43,10 +39,8 @@ app.use('/api', searchRoutes);
 
 const server = http.createServer(app);
 
-// Activez la persistance de la connexion
-server.keepAliveTimeout = 60000; // Temps d'attente en millisecondes avant de fermer une connexion inutilisée
+server.keepAliveTimeout = 60000;
 
-// Démarrer le serveur
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });

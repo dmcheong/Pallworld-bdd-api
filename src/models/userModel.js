@@ -32,15 +32,12 @@ const userSchema = new mongoose.Schema({
   verificationToken: String,
 });
 
-// Middleware pre-save pour hacher le mot de passe avant la sauvegarde
 userSchema.pre('save', hashPasswordMiddleware);
 
-// Ajout d'un méthode pour vérifier le mot de passe
 userSchema.methods.verifyPassword = async function (password) {
   return await verifyPasswordMiddleware(password, this);
 };
 
-// Ajout de méthodes statiques pour getById et getAll
 userSchema.statics.getById = async function (userId) {
   return await this.findById(userId).populate('historique');
 };

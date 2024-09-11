@@ -4,7 +4,7 @@ const panierSchema = new mongoose.Schema({
   totalPrice: {
     type: String,
     required: true,
-    min: 0, // Le prix ne peut pas être négatif
+    min: 0,
   },
   totalQuantity: {
     type: Number,
@@ -17,7 +17,6 @@ const panierSchema = new mongoose.Schema({
   }],
 });
 
-// Ajout de méthodes statiques pour getById et getAll
 panierSchema.statics.getById = async function (panierId) {
   return await this.findById(panierId).populate('tabProducts');
 };

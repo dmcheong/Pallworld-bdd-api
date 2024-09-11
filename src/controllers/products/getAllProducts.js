@@ -4,20 +4,20 @@ const Categorie = require('../../models/categorieModel');
 const getAllProducts = async (req, res) => {
   try {
     const { category } = req.query;
-    console.log('Catégorie reçue:', category); // Log pour vérifier la catégorie reçue
+    console.log('Catégorie reçue:', category);
     let products;
 
     if (category) {
       // Trouver l'ID de la catégorie par son nom, insensible à la casse
       const foundCategory = await Categorie.findOne({ name: new RegExp(`^${category}$`, 'i') });
       if (!foundCategory) {
-        console.log('Catégorie non trouvée:', category); // Log si la catégorie n'est pas trouvée
+        console.log('Catégorie non trouvée:', category);
         return res.status(404).json({ error: 'Catégorie non trouvée.' });
       }
 
       // Filtrer les produits par l'ID de la catégorie trouvée
       products = await Product.find({ category: foundCategory._id }).populate('category');
-      console.log('Produits trouvés:', products); // Log des produits trouvés
+      console.log('Produits trouvés:', products);
     } else {
       // Sinon, retourner tous les produits
       products = await Product.getAll();

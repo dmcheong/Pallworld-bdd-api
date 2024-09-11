@@ -8,7 +8,6 @@ const categorieSchema = new mongoose.Schema({
   },
 });
 
-// Ajout de méthodes statiques pour getById et getAll
 categorieSchema.statics.getById = async function (categorieId) {
   return await this.findById(categorieId);
 };
