@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
   address: String,
   codePostal: Number,
   credits: Number,
+  generatedImages: [{
+    url: String,
+    createdAt: { type: Date, default: Date.now },
+  }],
   historique: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Paniers',

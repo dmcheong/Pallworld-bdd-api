@@ -21,6 +21,7 @@ router.post('/', createUser);
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
 router.put('/:id', updateUser);
+router.put('/:id/save-image', updateUser);
 router.put('/:id/password', async (req, res) => {
     const { id } = req.params;
     const { newPassword } = req.body;

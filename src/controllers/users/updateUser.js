@@ -2,6 +2,7 @@ const User = require('../../models/userModel');
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
+  const { generatedImage } = req.body;
 
   try {
     const { firstName, lastName, email, password, phone, country, city, address, codePostal, credits, historique } = req.body;
@@ -12,6 +13,10 @@ const updateUser = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+    }
+
+    if (generatedImage) {
+      user.generatedImages.push(generatedImage);
     }
 
     user.firstName = firstName || user.firstName;
