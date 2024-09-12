@@ -20,6 +20,18 @@ const router = express.Router();
 router.post('/', createUser);
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
+router.get('/:id/credits', async (req, res) => {
+  try {
+      const user = await Users.findById(req.params.id);
+      if (!user) {
+          return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+      }
+      res.status(200).json({ credits: user.credits });
+  } catch (error) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des crédits.' });
+  }
+});
+
 router.put('/:id', updateUser);
 router.put('/:id/save-image', updateUser);
 router.put('/:id/password', async (req, res) => {

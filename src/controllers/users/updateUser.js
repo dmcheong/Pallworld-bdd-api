@@ -2,7 +2,7 @@ const User = require('../../models/userModel');
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { generatedImage } = req.body;
+  const { generatedImage, tokenDeduction } = req.body;
 
   try {
     const { firstName, lastName, email, password, phone, country, city, address, codePostal, credits, historique } = req.body;
@@ -17,6 +17,14 @@ const updateUser = async (req, res) => {
 
     if (generatedImage) {
       user.generatedImages.push(generatedImage);
+    }
+    
+    if (tokenDeduction) {
+      if (user.credits >= tokenDeduction) {
+        user.credits -= tokenDeduction;
+      } else {
+        return res.status(400).json({ error: 'Nombre de tokens insuffisant.' });
+      }
     }
 
     user.firstName = firstName || user.firstName;
