@@ -25,6 +25,7 @@ const productRoutes = require('./src/routes/productsRoutes');
 const categoriesRoutes = require('./src/routes/categoriesRoutes');
 const tabProductsRoutes = require('./src/routes/tabProductsRoutes');
 const searchRoutes = require('./src/routes/searchRoutes');
+const generatedImagesRoutes = require('./src/routes/generatedImagesRoutes');
 
 // Import de la nouvelle route pour les commandes
 const ordersRoutes = require('./src/routes/ordersRoutes');
@@ -36,7 +37,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/category', categoriesRoutes);
 app.use('/api/tabproducts', tabProductsRoutes);
 app.use('/api', searchRoutes);
-app.use('/api/orders', ordersRoutes); // Ajout de la route pour les commandes
+app.use('/api/orders', ordersRoutes);
+app.use('/api/generatedImages', generatedImagesRoutes);
 
 const server = http.createServer(app);
 
