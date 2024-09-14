@@ -3,26 +3,45 @@ const Categorie = require('../../models/categorieModel');
 
 const getAllProducts = async (req, res) => {
   try {
-    const { category } = req.query;
-    console.log('Catégorie reçue:', category);
-    let products;
+    const { category, color, size, minPrice, maxPrice, page = 1, limit = 8 } = req.query;
+    let query = {};
 
     if (category) {
-      // Trouver l'ID de la catégorie par son nom, insensible à la casse
       const foundCategory = await Categorie.findOne({ name: new RegExp(`^${category}$`, 'i') });
       if (!foundCategory) {
-        console.log('Catégorie non trouvée:', category);
         return res.status(404).json({ error: 'Catégorie non trouvée.' });
       }
-
-      // Filtrer les produits par l'ID de la catégorie trouvée
-      products = await Product.find({ category: foundCategory._id }).populate('category');
-    } else {
-      // Sinon, retourner tous les produits
-      products = await Product.getAll();
+      query.category = foundCategory._id;
     }
 
-    res.status(200).json(products);
+    if (color) {
+      query.colors = color;
+    }
+
+    if (size) {
+      query.sizes = size;
+    }
+
+    if (minPrice) {
+      query.price = { ...query.price, $gte: minPrice };
+    }
+
+    if (maxPrice) {
+      query.price = { ...query.price, $lte: maxPrice };
+    }
+
+    const products = await Product.find(query)
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit))
+      .populate('category');
+
+    const totalProducts = await Product.countDocuments(query);
+
+    res.status(200).json({
+      products,
+      totalPages: Math.ceil(totalProducts / limit),
+      currentPage: parseInt(page),
+    });
   } catch (error) {
     console.error('Erreur lors de la récupération des produits:', error);
     res.status(500).json({ error: 'Erreur lors de la récupération des produits.' });
