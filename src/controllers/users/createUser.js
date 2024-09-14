@@ -6,9 +6,6 @@ const createUser = async (req, res) => {
 
     const fullName = (firstName !== undefined && lastName !== undefined) ? `${firstName} ${lastName}` : undefined;
 
-    console.log('Les données récupérées du corps de la requête :', req.body);
-    console.log('Le fullname formé :', fullName);
-
     const newUser = new User({ 
       firstName,
       lastName,
@@ -23,11 +20,7 @@ const createUser = async (req, res) => {
       credits
     });
 
-    console.log('Le nouvel utilisateur créé :', newUser);
-
     const savedUser = await newUser.save();
-
-    console.log('L\'utilisateur sauvegardé :', savedUser);
 
     res.status(201).json(savedUser);
   } catch (error) {

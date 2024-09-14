@@ -17,7 +17,6 @@ const getAllProducts = async (req, res) => {
 
       // Filtrer les produits par l'ID de la catégorie trouvée
       products = await Product.find({ category: foundCategory._id }).populate('category');
-      console.log('Produits trouvés:', products);
     } else {
       // Sinon, retourner tous les produits
       products = await Product.getAll();
