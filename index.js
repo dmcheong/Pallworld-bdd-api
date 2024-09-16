@@ -3,6 +3,7 @@ const http = require('http');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const client = require('prom-client');
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,16 @@ app.use(bodyParser.json());
 // Route de bienvenue
 app.get('/', (req, res) => {
   res.send('Bienvenue sur votre API Pallworld!');
+});
+
+// Exposer les métriques sur /metrics
+app.get('/metrics', async (req, res) => {
+  try {
+    res.set('Content-Type', client.register.contentType);
+    res.end(await client.register.metrics());
+  } catch (ex) {
+    res.status(500).end(ex);
+  }
 });
 
 // Import des routes pour chaque entité
