@@ -32,10 +32,10 @@ const ordersRoutes = require('./src/routes/ordersRoutes');
 
 // Utilisation des routes pour chaque entité
 app.use('/api/users', usersRoutes);
-app.use('/api/paniers', panierRoutes);
+// app.use('/api/paniers', panierRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/category', categoriesRoutes);
-app.use('/api/tabproducts', tabProductsRoutes);
+// app.use('/api/tabproducts', tabProductsRoutes);
 app.use('/api', searchRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/generatedImages', generatedImagesRoutes);
