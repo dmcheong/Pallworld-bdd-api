@@ -1,8 +1,8 @@
 const User = require('../../models/userModel');
 
 const addTokens = async (req, res) => {
-  const { id } = req.params; // Récupère l'ID de l'utilisateur depuis les paramètres
-  const { tokensToAdd } = req.body; // Récupère le nombre de tokens à ajouter depuis le corps de la requête
+  const { id } = req.params; 
+  const { tokensToAdd } = req.body;
 
   try {
     let user = await User.findById(id);
@@ -11,9 +11,9 @@ const addTokens = async (req, res) => {
       return res.status(404).json({ error: 'Utilisateur non trouvé.' });
     }
 
-    user.credits = (user.credits || 0) + tokensToAdd; // Ajoute les tokens
+    user.credits = (user.credits || 0) + tokensToAdd; 
 
-    user = await user.save(); // Sauvegarde les changements dans la base de données
+    user = await user.save();
 
     res.status(200).json({ message: 'Tokens ajoutés avec succès', credits: user.credits });
   } catch (error) {

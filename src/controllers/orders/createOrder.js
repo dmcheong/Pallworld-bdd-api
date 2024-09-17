@@ -5,8 +5,6 @@ const createOrder = async (req, res) => {
   try {
     const { userId, items, totalAmount, shippingAddress } = req.body;
 
-    console.log('Items received:', items);
-
     if (!userId || !items || items.length === 0 || !totalAmount || !shippingAddress) {
       return res.status(400).json({ error: 'Certaines informations obligatoires sont manquantes.' });
     }
@@ -16,28 +14,27 @@ const createOrder = async (req, res) => {
       return res.status(404).json({ error: 'Utilisateur non trouvé.' });
     }
 
-    // Modifier la condition pour détecter les commandes de tokens
+    // Vérification si c'est une commande de tokens
     const isTokenPurchase = items.some(item => item.name && item.name.toLowerCase().includes('token'));
     if (isTokenPurchase) {
       const order = new Order({
         userId,
         items: items.map(item => ({
-          productId: null,  // Pas de produit associé
+          productId: null,
           quantity: item.quantity,
           price: item.price,
-          isTokenPurchase: true,  // Défini sur true pour une commande de tokens
+          isTokenPurchase: true,
           tokensQuantity: item.quantity,
         })),
         totalAmount,
         shippingAddress,
       });
     
-      console.log('Order created (tokens):', order);  // Vérifiez ici que les tokens sont correctement traités
       await order.save();
       return res.status(201).json(order);
     }
 
-    // Si c'est une commande de produits classiques
+    // Pour les commandes de produits, y compris les options de personnalisation et l'image générée
     const tokensRequired = items.reduce((total, item) => total + item.quantity, 0);
 
     if (user.credits < tokensRequired) {
@@ -55,15 +52,12 @@ const createOrder = async (req, res) => {
         price: item.price,
         color: item.color,
         size: item.size,
-        customizationOptions: item.customizationOptions,
-        isTokenPurchase: false,
-        tokensQuantity: 0,
+        customizationOptions: item.customizationOptions, 
       })),
       totalAmount,
       shippingAddress,
     });
 
-    console.log('Order created (products):', order); // Ajoutez cette ligne pour voir ce qui est enregistré
     await order.save();
     res.status(201).json(order);
   } catch (error) {
