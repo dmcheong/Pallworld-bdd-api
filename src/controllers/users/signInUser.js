@@ -61,7 +61,16 @@ const signInUser = async (req, res) => {
       await existingCart.save();
     }
 
-    return res.status(200).json({ message: "Connexion réussie !", token });
+    // Inclure l'ID utilisateur dans la réponse
+    return res.status(200).json({ 
+      message: "Connexion réussie !", 
+      token, 
+      user: { 
+        _id: user._id, 
+        email: user.email,
+        // Ajoute ici d'autres informations sur l'utilisateur si nécessaire
+      } 
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Une erreur est survenue lors de la connexion." });

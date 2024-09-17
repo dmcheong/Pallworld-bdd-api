@@ -1,5 +1,4 @@
 const Order = require('../../models/orderModel');
-const Products = require('../../models/productsModel');
 
 const getOrdersByUserId = async (req, res) => {
   const { userId } = req.params;
@@ -10,7 +9,8 @@ const getOrdersByUserId = async (req, res) => {
         path: 'items.productId',
         select: 'name colors sizes customizationOptions'
       })
-      .sort({ date: -1 });
+      .sort({ createdAt: -1 }) 
+      .exec();
 
     res.status(200).json(orders);
   } catch (error) {

@@ -22,6 +22,14 @@ const orderItemSchema = new mongoose.Schema({
   color: String,
   size: String,
   customizationOptions: [customizationOptionSchema],
+  isTokenPurchase: {
+    type: Boolean,
+    default: false,
+  },
+  tokensQuantity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const orderSchema = new mongoose.Schema({
@@ -40,6 +48,10 @@ const orderSchema = new mongoose.Schema({
     street: String,
     city: String,
     postalCode: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

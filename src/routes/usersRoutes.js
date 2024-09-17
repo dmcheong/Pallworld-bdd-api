@@ -5,12 +5,11 @@ const updateUser = require('../controllers/users/updateUser');
 const deleteUser = require('../controllers/users/deleteUser');
 const getUserById = require('../controllers/users/getUserById');
 const getAllUsers = require('../controllers/users/getAllUsers');
+const addTokens = require('../controllers/users/addTokens');
 
 const { verifyUser } = require('../controllers/users/verifyUser');
-
 const { forgotPassword } = require('../controllers/users/forgotPassword');
 const { resetPassword } = require('../controllers/users/resetPassword'); 
-
 const { signInUser } = require('../controllers/users/signInUser');
 const { signUpUser } = require('../controllers/users/signUpUser');
 
@@ -60,6 +59,9 @@ router.put('/:id/password', async (req, res) => {
 });
 router.delete('/:id', deleteUser);
 
+// Route spécifique pour l'authentification via Google OAuth
+router.post('/oauth-google', createUser); 
+
 // Routes pour vérifier l'utilisateur
 router.post('/verify', verifyUser);
 
@@ -70,5 +72,8 @@ router.post('/reset-password', resetPassword);
 // Routes pour l'authentification (sign in et sign up)
 router.post('/signin', signInUser);
 router.post('/signup', signUpUser);
+
+// Route pour ajouter des tokens
+router.post('/:id/add-tokens', addTokens);
 
 module.exports = router;
