@@ -3,7 +3,7 @@ const Categorie = require('../../models/categorieModel');
 
 const createProduct = async (req, res) => {
   try {
-    const { name, description, characteristics, price, quantity, category, images, colors, sizes, customizationOptions } = req.body;
+    const { name, description, characteristics, price, discountPrice, isPromo, quantity, category, images, colors, sizes, customizationOptions } = req.body;
 
     const existingCategories = await Categorie.find({ _id: { $in: category } });
     if (existingCategories.length !== category.length) {
@@ -15,6 +15,8 @@ const createProduct = async (req, res) => {
       description,
       characteristics,
       price,
+      discountPrice,
+      isPromo,
       quantity,
       category,
       images,

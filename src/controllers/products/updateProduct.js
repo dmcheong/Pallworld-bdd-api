@@ -5,7 +5,7 @@ const updateProduct = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const { name, description, characteristics, price, quantity, category, images, colors, sizes, customizationOptions } = req.body;
+    const { name, description, characteristics, price, discountPrice, isPromo, quantity, category, images, colors, sizes, customizationOptions } = req.body;
 
     const existingCategories = await Categorie.find({ _id: { $in: category } });
     if (existingCategories.length !== category.length) {
@@ -19,6 +19,8 @@ const updateProduct = async (req, res) => {
         description,
         characteristics,
         price,
+        discountPrice,
+        isPromo,
         quantity,
         category,
         images,

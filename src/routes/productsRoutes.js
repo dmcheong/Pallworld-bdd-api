@@ -1,4 +1,5 @@
 const express = require('express');
+const Products = require('../models/productsModel');
 const { getAvailableSizes } = require('../controllers/products/getAvailableSizes');
 const { getAvailableColors } = require('../controllers/products/getAvailableColors');
 const createProduct = require('../controllers/products/createProduct');
@@ -12,6 +13,21 @@ const router = express.Router();
 
 // Utiliser le middleware pour toutes les routes de ce routeur
 // router.use(metricsMiddleware);
+
+// Route pour récupérer les produits en promotion
+router.get('/promos', async (req, res) => {
+    try {
+      console.log("Récupération des produits en promotion...");
+      const promoProducts = await Products.find({ isPromo: true });
+      console.log("Produits récupérés :", promoProducts);
+      
+      res.json({ products: promoProducts });
+    } catch (error) {
+      console.error('Erreur lors de la récupération des produits en promotion:', error);
+      res.status(500).json({ message: 'Erreur lors de la récupération des produits en promotion.', error: error.message });
+    }
+  });
+   
 
 // Routes pour récupérer les tailles et les couleurs disponibles
 router.get('/sizes', getAvailableSizes);
