@@ -38,7 +38,8 @@ const categoriesRoutes = require('./src/routes/categoriesRoutes');
 const searchRoutes = require('./src/routes/searchRoutes');
 const generatedImagesRoutes = require('./src/routes/generatedImagesRoutes');
 // const metricsRoute = require('./src/routes/metricsRoute'); //bug
-// Import de la nouvelle route pour les commandes
+
+// Route pour les commandes
 const ordersRoutes = require('./src/routes/ordersRoutes');
 //not use anymore
 const panierRoutes = require('./src/routes/panierRoutes');

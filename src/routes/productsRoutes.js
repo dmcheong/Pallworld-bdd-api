@@ -26,9 +26,8 @@ router.get('/promos', async (req, res) => {
       console.error('Erreur lors de la récupération des produits en promotion:', error);
       res.status(500).json({ message: 'Erreur lors de la récupération des produits en promotion.', error: error.message });
     }
-  });
+});
    
-
 // Routes pour récupérer les tailles et les couleurs disponibles
 router.get('/sizes', getAvailableSizes);
 router.get('/colors', getAvailableColors); 
