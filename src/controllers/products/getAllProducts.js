@@ -15,7 +15,7 @@ const getAllProducts = async (req, res) => {
     }
 
     if (color) {
-      query.colors = color;
+      query.colors = { $regex: new RegExp(`^${color}$`, 'i') };
     }
 
     if (size) {
