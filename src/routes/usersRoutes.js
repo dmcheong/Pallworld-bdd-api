@@ -13,12 +13,12 @@ const { resetPassword } = require('../controllers/users/resetPassword');
 const { signInUser } = require('../controllers/users/signInUser');
 const { signUpUser } = require('../controllers/users/signUpUser');
 
-const metricsMiddleware = require('../middlewares/metricsMiddleware');
+// const metricsMiddleware = require('../middlewares/metricsMiddleware');
 
 const router = express.Router();
 
 // Utiliser le middleware pour toutes les routes de ce routeur
-router.use(metricsMiddleware);
+// router.use(metricsMiddleware);
 
 // Routes pour les utilisateurs
 router.post('/', createUser);
