@@ -1,7 +1,11 @@
 const Product = require('../../models/productsModel');
 const Categorie = require('../../models/categorieModel');
+const { mongoRequestDuration, mongoErrorsTotal } = require('../../metrics'); // Importer les métriques
 
 const getAllProducts = async (req, res) => {
+  // Démarre le timer pour la durée de la requête MongoDB
+  const end = mongoRequestDuration.startTimer({ operation: 'getAllProducts' });
+
   try {
     const { category, color, size, minPrice, maxPrice, page = 1, limit = 8 } = req.query;
     let query = {};
@@ -43,8 +47,13 @@ const getAllProducts = async (req, res) => {
       currentPage: parseInt(page),
     });
   } catch (error) {
+    // Incrémenter le compteur en cas d'erreur
+    mongoErrorsTotal.inc({ operation: 'getAllProducts' });
     console.error('Erreur lors de la récupération des produits:', error);
     res.status(500).json({ error: 'Erreur lors de la récupération des produits.' });
+  } finally {
+    // Arrêter le timer une fois la requête terminée
+    end();
   }
 };
 

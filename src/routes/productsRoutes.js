@@ -6,12 +6,12 @@ const updateProduct = require('../controllers/products/updateProduct');
 const deleteProduct = require('../controllers/products/deleteProduct');
 const getProductById = require('../controllers/products/getProductById');
 const getAllProducts = require('../controllers/products/getAllProducts');
-const metricsMiddleware = require('../middlewares/metricsMiddleware');
+// const metricsMiddleware = require('../middlewares/metricsMiddleware');
 
 const router = express.Router();
 
 // Utiliser le middleware pour toutes les routes de ce routeur
-router.use(metricsMiddleware);
+// router.use(metricsMiddleware);
 
 // Routes pour récupérer les tailles et les couleurs disponibles
 router.get('/sizes', getAvailableSizes);
