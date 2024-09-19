@@ -36,7 +36,6 @@ const usersRoutes = require('./src/routes/usersRoutes');
 const productRoutes = require('./src/routes/productsRoutes');
 const categoriesRoutes = require('./src/routes/categoriesRoutes');
 const searchRoutes = require('./src/routes/searchRoutes');
-const generatedImagesRoutes = require('./src/routes/generatedImagesRoutes');
 // const metricsRoute = require('./src/routes/metricsRoute'); //bug
 
 // Route pour les commandes
@@ -57,7 +56,6 @@ app.use('/api/products', productRoutes);
 app.use('/api/category', categoriesRoutes);
 app.use('/api', searchRoutes);
 app.use('/api/orders', ordersRoutes);
-app.use('/api/generatedImages', generatedImagesRoutes);
 // app.use('/metrics', metricsRoute); //bug
 
 //not use anymore
