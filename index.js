@@ -11,7 +11,7 @@ dotenv.config();
 const port = process.env.PORT;
 const mongoose = require('./src/config/mongodb-config');
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Exposition des métriques via /metrics

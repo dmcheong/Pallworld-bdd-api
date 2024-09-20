@@ -13,7 +13,7 @@ const signUpUser = async (req, res) => {
 
     await newUser.save();
 
-    const verificationLink = `http://localhost:3000/verifier-mon-compte?token=${verificationToken}`;
+    const verificationLink = `http://localhost:3001/verifier-mon-compte?token=${verificationToken}`;
     const emailContent = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #333;">Bienvenue chez Pallworld !</h2>
