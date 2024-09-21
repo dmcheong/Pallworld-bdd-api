@@ -15,7 +15,7 @@ const forgotPassword = async (req, res) => {
     const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Envoyer l'email de réinitialisation
-    const resetLink = `http://localhost:3001/reset-password?token=${resetToken}`;
+    const resetLink = `http://localhost:${process.env.PORT_FRONT}/reset-password?token=${resetToken}`;
     const emailContent = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #333;">Réinitialisation du mot de passe</h2>
@@ -25,7 +25,7 @@ const forgotPassword = async (req, res) => {
       </div>
     `;
 
-    await axios.post(`http://localhost:3011/sendEmail`, {
+    await axios.post(`http://localhost:${process.env.PORT_NOTIFICATIONS}/sendEmail`, {
       destinataire: user.email,
       sujet: 'Réinitialisation du mot de passe',
       contenu: emailContent,

@@ -13,7 +13,7 @@ const signUpUser = async (req, res) => {
 
     await newUser.save();
 
-    const verificationLink = `http://localhost:3001/verifier-mon-compte?token=${verificationToken}`;
+    const verificationLink = `http://localhost:${process.env.PORT_FRONT}/verifier-mon-compte?token=${verificationToken}`;
     const emailContent = `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
         <h2 style="color: #333;">Bienvenue chez Pallworld !</h2>
@@ -29,7 +29,7 @@ const signUpUser = async (req, res) => {
       contenu: emailContent,
     };
 
-    await axios.post('http://localhost:3011/sendEmail', notificationPayload);
+    await axios.post(`http://localhost:${process.env.PORT_NOTIFICATIONS}/sendEmail`, notificationPayload);
 
     res.status(201).json({ message: "Utilisateur enregistré avec succès. Veuillez vérifier votre e-mail." });
   } catch (error) {
