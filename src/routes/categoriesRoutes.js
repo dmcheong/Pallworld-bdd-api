@@ -1,4 +1,5 @@
 const express = require('express');
+const Categorie = require('../models/categorieModel');
 const createCategories = require('../controllers/categories/createCategorie');
 const updateCategories = require('../controllers/categories/updateCategorie');
 const deleteCategories = require('../controllers/categories/deleteCategorie');
@@ -14,6 +15,18 @@ const router = express.Router();
 // Routes
 router.post('/', createCategories);
 router.get('/', getAllCategories);
+
+// Route pour compter le nombre de catégories
+router.get('/count', async (req, res) => {
+    try {
+        const count = await Categorie.countDocuments();
+        res.json({ count });
+    } catch (error) {
+        console.error('Erreur lors du comptage des catégories:', error);
+        res.status(500).json({ message: 'Erreur lors du comptage des catégories' });
+    }
+});
+
 router.get('/:id', getCategoriesById);
 router.put('/:id', updateCategories);
 router.delete('/:id', deleteCategories);

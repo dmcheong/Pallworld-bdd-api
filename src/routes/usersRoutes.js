@@ -23,6 +23,18 @@ const router = express.Router();
 // Routes pour les utilisateurs
 router.post('/', createUser);
 router.get('/', getAllUsers);
+
+// Route pour compter le nombre d'utilisateurs
+router.get('/count', async (req, res) => {
+  try {
+    const count = await Users.countDocuments();
+    res.json({ count });
+  } catch (error) {
+    console.error('Erreur lors du comptage des utilisateurs:', error);
+    res.status(500).json({ message: 'Erreur lors du comptage des utilisateurs' });
+  }
+});
+
 router.get('/:id', getUserById);
 router.get('/:id/credits', async (req, res) => {
   try {

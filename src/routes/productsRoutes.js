@@ -35,6 +35,18 @@ router.get('/colors', getAvailableColors);
 // Routes pour les produits
 router.post('/', createProduct);
 router.get('/', getAllProducts);
+
+// Route pour compter le nombre de produits
+router.get('/count', async (req, res) => {
+  try {
+      const count = await Products.countDocuments();
+      res.json({ count });
+  } catch (error) {
+      console.error('Erreur lors du comptage des produits:', error);
+      res.status(500).json({ message: 'Erreur lors du comptage des produits' });
+  }
+});
+
 router.get('/:id', getProductById); 
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
