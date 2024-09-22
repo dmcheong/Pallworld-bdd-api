@@ -49,6 +49,7 @@ router.get('/count', async (req, res) => {
 
 router.get('/:id', getProductById); 
 router.put('/:id', updateProduct);
+router.delete('/', deleteProduct);
 router.delete('/:id', deleteProduct);
 
 module.exports = router;
