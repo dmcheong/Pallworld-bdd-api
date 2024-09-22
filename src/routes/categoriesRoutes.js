@@ -29,6 +29,6 @@ router.get('/count', async (req, res) => {
 
 router.get('/:id', getCategoriesById);
 router.put('/:id', updateCategories);
-router.delete('/:id', deleteCategories);
+router.delete('/:id?', deleteCategories);
 
 module.exports = router;
